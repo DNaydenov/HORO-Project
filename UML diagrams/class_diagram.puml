@@ -1,0 +1,121 @@
+@startuml
+
+package View {
+class Terminal {
++ listenForInput()
++ returnOutput()
+}
+}
+
+package Presenter {
+
+class Presenter {
+- terminal : Terminal
+- modelManager : modelManager
++ waitForEvent()
++ updateView()
++ buildDance(filename : String) : bool
+- verifyCommand(command : String) : bool
++ executeCommand(command : String)
++ save(filename : String) : bool
++ exit(flag : bool)
+}
+
+class CommandParser {
+- input : String
+- commands: hash_map<String,String>
++ verifyCommand(String) : bool
+}
+}
+
+package Model {
+
+class ModelManager {
+- dance : Dance
++ buildDance(filename)
++ saveDataInFile()
++ executeCommand(String)
+}
+
+class FileManager {
+- filename : String
++ loadDataFromFile()
++ saveDataInFile()
+}
+
+package Builder {
+class BuildManager {
+- loadDataFromFile(filename)
++ constructDanceFormation(filename) : Dance
++ finishConstruction()
+}
+
+interface DanceBuilder {
+- construction : Dance
++ addDancer(String)
++ getConstruction() : Dance
+}
+}
+
+package Product {
+class Dancer {
+- name : String
+- leftDancer : Dancer* 
+- rightDancer :  Dancer* 
+- holdsLeftDancer : bool
+- holdsRightDancer : bool
++ release(bool)
++ grab(bool)
+}
+
+interface Dance {
+- dancers : map<String,Dancer>
++ release(dancer : String, neighbor : bool)
++ grab(dancer : String, neighbor : bool)
++ add(dancer : String, left : String, right : String)
++ remove(dancer : String)
++ swap(dancer_1 : String, dancer_2 : String)
++ info(dancer : String)
++ print() : vector<Dancer>
+}
+}
+
+package Horo {
+class Horo implements Dance {
+- dancers : map<String,Dancer>
++ release(dancer : String, neighbor : bool)
++ grab(dancer : String, neighbor : bool)
++ add(dancer : String, left : String, right : String)
++ remove(dancer : String)
++ swap(dancer_1 : String, dancer_2 : String)
++ info(dancer : String)
++ print() : vector<Dancer>
+}
+
+class HoroBuilder {
+- construction : Horo
++ addDancer()
++ getConstruction() : Dance
+}
+}
+}
+
+Terminal <--> Presenter
+Presenter <-down-> CommandParser
+ModelManager <-left-> Presenter
+ModelManager <--> Dance
+ModelManager -right-> FileManager
+FileManager <-- BuildManager
+ModelManager -right-> BuildManager
+BuildManager -right-> DanceBuilder
+DanceBuilder --> Dance
+HoroBuilder .left.|> DanceBuilder
+Dancer <-right-* Dance
+Horo -right-> HoroBuilder
+
+
+note bottom of CommandParser : Level 1 of command verification
+
+
+@enduml
+
