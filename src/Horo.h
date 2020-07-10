@@ -23,4 +23,6 @@ class Horo {
   void print() const;
 
   bool add(const string &name, const string &left = "Undefined", const string &right = "Undefined");
+
+  vector<string> getNames();
 };
