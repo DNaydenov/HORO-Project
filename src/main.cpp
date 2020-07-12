@@ -1,20 +1,8 @@
-#include <iostream>
-
-#include "Horo.h"
-#include "model.h"
-
+#include <gtest/gtest.h>
 int main() {
-  Horo H;
-  H.add("Ivan");
-  H.add("Gosho", "Ivan");
-  H.add("Pesho", "Ivan", "Gosho");
-  H.add("Dragan", "Gosho", "Ivan");
 
-  FileManager FM("dancers.txt");
-  Model M(H, FM);
-  M.saveDataInFile(FM.getFileName());
-
-  H.print();
+  testing::InitGoogleTest();
+  RUN_ALL_TESTS();
 
   return 0;
 }

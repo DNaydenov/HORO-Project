@@ -7,9 +7,9 @@ Dancer::Dancer(const string &name)
 
 Dancer::Dancer(const string &name, Dancer *left, Dancer *right) {
   dancerName = name;
-  dancerInLeft = left;
-  dancerInRight = right;
+  setDancersInBothSides(left,right);
 }
+
 
 string Dancer::getName() const {
   return dancerName;
@@ -22,6 +22,7 @@ Dancer *Dancer::getDancerInLeft() const {
 Dancer *Dancer::getDancerInRight() const {
   return dancerInRight;
 }
+
 
 void Dancer::setDancerInLeft(Dancer *left, bool grabFlag) {
   dancerInLeft = left;
@@ -41,6 +42,7 @@ void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, bool grabFlagLef
   setDancerInRight(right, grabFlagRight);
 }
 
+
 bool Dancer::isHoldDancerInLeft() const {
   return holdDancerInLeft;
 }
@@ -49,7 +51,7 @@ bool Dancer::isHoldDancerInRight() const {
   return holdDancerInRight;
 }
 
-void Dancer::release(char side) {
+void Dancer::release(const char side) {
   switch (side) {
     case 'l' : holdDancerInLeft = false;
       break;
@@ -64,7 +66,7 @@ void Dancer::release(char side) {
   }
 }
 
-void Dancer::grab(char side) {
+void Dancer::grab(const char side) {
   switch (side) {
     case 'l' : holdDancerInLeft = true;
       break;
@@ -88,5 +90,5 @@ void Dancer::info() const{
   if (dancerInRight->holdDancerInLeft) { cout << "<"; }
   cout << "---";
   if (holdDancerInRight) { cout << ">"; }
-  cout << " " << dancerInRight->getName() << " ";
+  cout << " " << dancerInRight->getName() << endl;
 }

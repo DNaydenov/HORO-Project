@@ -1,28 +1,19 @@
 #pragma once
-#include <iostream>
-#include <cstring>
-#include <unordered_map>
-#include <iterator>
-#include "Dancer.h"
-using namespace std;
+#include <exception>
+#include "Dance.h"
 
-class Horo {
-  unordered_map<string, Dancer *> dancers;
-
-  bool isDancerExist(const string &name);
-
-  bool isNextToEachOther(const string &firstName, const string &secondName);
+class Horo : public Dance {
 
  public:
-  void release(const string &name, char side);
 
-  void grab(const string &name, char side);
+    explicit Horo(const vector<string> &names);
 
-  void info(const string &name);
+    void add(const string &B, const string &A, const string &C) override;
 
-  void print() const;
+    void add(const vector<string> &names);
 
-  bool add(const string &name, const string &left = "Undefined", const string &right = "Undefined");
+    void remove(const string &D) override;
 
-  vector<string> getNames();
+    void swap(const string &A, const string &B) override;
 };
+
