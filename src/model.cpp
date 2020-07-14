@@ -1,9 +1,7 @@
 #include "model.h"
 
-Model::Model(Horo dance, FileManager file) : dance(dance), file(file) {}
+Model::Model(Horo dance, string fileName) : dance(dance), file(fileName) {}
 
-Model::~Model() {}
-
-void Model::saveDataInFile(string fileName) {
+void Model::saveDataInFile() {
   file.saveDataInFile(dance.getNames());
 }
