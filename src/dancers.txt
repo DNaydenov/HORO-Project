@@ -1,5 +1,9 @@
-4
+8
 Ivan
 Pesho
+Nasko
 Gosho
 Dragan
+skelet
+tinko
+aldi

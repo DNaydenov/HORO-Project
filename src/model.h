@@ -1,19 +1,17 @@
 #pragma once
+#include "BuildManager.h"
 #include "FileManager.h"
 #include "Horo.h"
 #include "string"
-
 class Model {
  private:
   /* data */
-  Horo dance;
-  FileManager file;
 
  public:
-  Model(Horo dance, string fileName);
+  Horo *dance = nullptr;
   ~Model() = default;
 
   void buildDance(string fileName);
-  void saveDataInFile();
+  void saveDataInFile(string fileName);
   void executeCommand(string comaandn);
 };

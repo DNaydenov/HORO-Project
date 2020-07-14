@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 
+
 using namespace std;
 
 FileManager::FileManager(string file) : fileName(file) {}
@@ -16,13 +17,22 @@ string FileManager::getFileName() const { return fileName; }
 
 void FileManager::setFileName(string file) { fileName = file; }
 
-void FileManager::loadDataFromFile() {
+vector<string> FileManager::loadDataFromFile() {
   ifstream inFile;
   inFile.open(fileName);
   if (inFile.fail()) {
     cerr << "fail open a file" << endl;
   }
+  size_t size;
+  inFile >> size;
+  vector<string> names;
+  names.resize(size);
+
+  for (string &name : names) {
+    inFile >> name;
+  }
   inFile.close();
+  return names;
 }
 
 void FileManager::saveDataInFile(vector<string> text) {

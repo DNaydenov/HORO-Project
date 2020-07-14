@@ -2,21 +2,22 @@
 #include <iostream>
 #include <string>
 
-#include "DanceBuilder.h"
 #include "FileManager.h"
+#include "HoroBuilder.h"
 
 using namespace std;
 
 class BuildManager {
  private:
-  FileManager file;
   DanceBuilder* builder;
+  vector<string> names;
+
+  vector<string> loadDataFromFile(string fileName);
 
  public:
-  BuildManager();
-  ~BuildManager();
+  BuildManager(string fileName);
+  ~BuildManager() = default;
 
-  void constructDanceFormation(string fileName);
-  void loadDataFromFile(string fileName);
-  void finishConstruction();
+  void  constructDanceFormation(string fileName);
+  Dance *getConstruction();
 };

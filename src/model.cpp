@@ -1,7 +1,11 @@
 #include "model.h"
 
-Model::Model(Horo dance, string fileName) : dance(dance), file(fileName) {}
+void Model::buildDance(string fileName) {
+  BuildManager manager(fileName);
+  dance = dynamic_cast<Horo *>(manager.getConstruction());
+}
 
-void Model::saveDataInFile() {
-  file.saveDataInFile(dance.getNames());
+void Model::saveDataInFile(string fileName) {
+  FileManager file(fileName);
+  file.saveDataInFile(dance->getNames());
 }

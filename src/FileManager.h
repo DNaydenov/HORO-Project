@@ -1,3 +1,4 @@
+#pragma once
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -16,6 +17,6 @@ class FileManager {
   string getFileName() const;
   void setFileName(string file);
 
-  void loadDataFromFile();
+  vector<string> loadDataFromFile();
   void saveDataInFile(vector<string> text);
 };
