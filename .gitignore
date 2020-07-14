@@ -376,5 +376,10 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# CLion
+src/CMakeLists.txt
+src/cmake-build-debug/
+.idea/
+
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
