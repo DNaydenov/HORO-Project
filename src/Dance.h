@@ -10,8 +10,8 @@ class Dance {
 
  public:
 
-  bool isThereDancerWithName(const string &name);
-  bool isThereDancerWithName(const vector<string> &names);
+  bool isExistDancerWithName(const string &name);
+  bool isExistDancerWithName(const vector<string> &names);
 
   bool areDancersAdjacent(const string &left, const string &right);
   bool areDancersAdjacent(const vector<string> &names);

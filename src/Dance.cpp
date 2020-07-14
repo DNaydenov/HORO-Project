@@ -1,12 +1,12 @@
 #include "Dance.h"
 
-bool Dance::isThereDancerWithName(const string &name) {
+bool Dance::isExistDancerWithName(const string &name) {
   return !(dancers.find(name) == dancers.end());
 }
 
-bool Dance::isThereDancerWithName(const vector<string> &names) {
+bool Dance::isExistDancerWithName(const vector<string> &names) {
   for(const string &name : names) {
-    if(!isThereDancerWithName(name)) {
+    if(!isExistDancerWithName(name)) {
       return false;
     }
   }

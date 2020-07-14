@@ -1,79 +1,72 @@
 #include "Horo.h"
 
-//TODO check the type of exceptions
-//TODO add valid exception messages
+void Horo::initialAdd(const string &firstDancerName, const string &secondDancerName, const string &thirdDancerName) {
+  Dancer *firstDancer = new Dancer(firstDancerName),
+      *secondDancer = new Dancer(secondDancerName),
+      *thirdDancer = new Dancer(thirdDancerName);
 
-Horo::Horo(const vector<string> &names) {
-  add(names);
+  firstDancer->setDancersInBothSides(thirdDancer, secondDancer);
+  secondDancer->setDancersInBothSides(firstDancer, thirdDancer);
+  thirdDancer->setDancersInBothSides(secondDancer, firstDancer);
+
+  dancers.insert({{firstDancerName, firstDancer},{secondDancerName, secondDancer}, {thirdDancerName, thirdDancer}});
 }
 
-void Horo::add(const string &B, const string &A, const string &C) {
+void Horo::justAdd(const string &newDancerName, const string &leftDancerName, const string &rightDancerName) {
+  Dancer *newDancer = new Dancer(newDancerName);
 
+  newDancer->setDancersInBothSides(dancers[leftDancerName], dancers[rightDancerName]);
+  dancers[leftDancerName]->setDancerInRight(newDancer);
+  dancers[rightDancerName]->setDancerInLeft(newDancer);
+
+  dancers.insert({{newDancerName, newDancer}});
+}
+
+void Horo::justRemove(const string &dancerName) {
+  dancers[dancerName]->getDancerInLeft()->setDancerInRight(dancers[dancerName]->getDancerInRight());
+  dancers[dancerName]->getDancerInRight()->setDancerInLeft(dancers[dancerName]->getDancerInLeft());
+  dancers.erase(dancerName);
+}
+
+Horo::Horo(const string &firstDancerName, const string &secondDancerName, const string &thirdDancerName) {
+  initialAdd(firstDancerName,secondDancerName,thirdDancerName);
+}
+
+
+void Horo::add(const string &newDancerName, const string &leftDancerName, const string &rightDancerName) {
   if (dancers.empty()) {
-    Dancer *middleDancer = new Dancer(B),
-           *leftDancer = new Dancer(A),
-           *rightDancer = new Dancer(C);
-
-    middleDancer->setDancersInBothSides(leftDancer, rightDancer);
-    leftDancer->setDancersInBothSides(rightDancer, middleDancer);
-    rightDancer->setDancersInBothSides(middleDancer, leftDancer);
-
-    dancers.insert({{A,leftDancer}, {B,middleDancer}, {C,rightDancer}});
+    initialAdd(newDancerName, leftDancerName, rightDancerName);
   }
-  else if (isThereDancerWithName(B)) {
-    throw runtime_error("The dancer with name " + B + " already exists.");
+  else if (isExistDancerWithName(newDancerName)) {
+    throw runtime_error("The dancer with name " + newDancerName + " already exists.");
   }
-  else if (!isThereDancerWithName(A) || !isThereDancerWithName(C)) {
-    if(!isThereDancerWithName(A)) {
-      throw runtime_error("The dancer with name " + A + " does not exist.");
-    }
-    else {
-      throw runtime_error("The dancer with name " + C + " does not exist.");
-    }
+  else if (!isExistDancerWithName(leftDancerName)) {
+    throw runtime_error("The dancer with name " + leftDancerName + " does not exist.");
   }
-  else if (!areDancersAdjacent(A, C)) {
-    throw runtime_error("The dancers with names " + A + " and " + C + " are not adjacent.");
+  else if(!isExistDancerWithName(rightDancerName)) {
+    throw runtime_error("The dancer with name " + rightDancerName + " does not exist.");
+  }
+  else if (!areDancersAdjacent(leftDancerName, rightDancerName)) {
+    throw runtime_error("The dancers with names " + leftDancerName + " and " + rightDancerName + " are not adjacent.");
   }
   else {
-    Dancer *newDancer = new Dancer(B);
-
-    newDancer->setDancersInBothSides(dancers[A], dancers[C]);
-    dancers[A]->setDancerInRight(newDancer);
-    dancers[C]->setDancerInLeft(newDancer);
-
-    dancers.insert({{B,newDancer}});
+      justAdd(newDancerName,leftDancerName,rightDancerName);
   }
 }
 
-void Horo::add(const vector<string> &names) {
-  if(names.size() < 3) {
-    return;
+void Horo::remove(const string &dancerName) {
+  if (!isExistDancerWithName(dancerName)) {
+    throw runtime_error("The dancer with name " + dancerName + " does not exist.");
+  }
+  if (dancers[dancerName]->isHoldDancerInLeft() || dancers[dancerName]->isHoldDancerInRight()) {
+    throw runtime_error(dancerName + " hold another dancer.");
+  }
+  else if (dancers[dancerName]->getDancerInLeft()->isHoldDancerInRight()
+        || dancers[dancerName]->getDancerInRight()->isHoldDancerInLeft()) {
+    throw runtime_error("Another dancer hold " + dancerName + ".");
   }
   else {
-    add(names[1],names[0],names[2]);
-    if(names.size() > 3) {
-      for (int i = 3; i < names.size(); i++) {
-        add(names[i], names[i - 1], names[0]);
-      }
-    }
-  }
-}
-
-void Horo::remove(const string &A) {
-  if (!isThereDancerWithName(A)) {
-    throw runtime_error("");
-  }
-  if (dancers[A]->isHoldDancerInLeft() || dancers[A]->isHoldDancerInRight()) {
-    throw runtime_error(A + " hold another dancer.");
-  }
-  else if (dancers[A]->getDancerInLeft()->isHoldDancerInRight()
-      || dancers[A]->getDancerInRight()->isHoldDancerInLeft()) {
-    throw runtime_error("Another dancer hold " + A + ".");
-  }
-  else {
-    dancers[A]->getDancerInLeft()->setDancerInRight(dancers[A]->getDancerInRight());
-    dancers[A]->getDancerInRight()->setDancerInLeft(dancers[A]->getDancerInLeft());
-    dancers.erase(A);
+    justRemove(dancerName);
     if (dancers.size() == 2) {
       //exit();
     }
@@ -81,7 +74,7 @@ void Horo::remove(const string &A) {
 }
 
 void Horo::swap(const string &A, const string &B) {
-  if (!isThereDancerWithName(A) || !isThereDancerWithName(B)) {
+  if (!isExistDancerWithName(A) || !isExistDancerWithName(B)) {
     throw runtime_error("1");
   } else if (!areDancersAdjacent(A, B) && !areDancersAdjacent(B, A)) {
     throw runtime_error("2");

@@ -4,16 +4,15 @@
 
 class Horo : public Dance {
 
+    void initialAdd(const string &firstDancerName, const string &secondDancerName, const string &thirdDancerName);
+    void justAdd(const string &newDancerName, const string &leftDancerName, const string &rightDancerName);
+    void justRemove(const string &dancerName);
+
  public:
+    explicit Horo(const string &firstDancerName, const string &secondDancerName, const string &thirdDancerName);
 
-    explicit Horo(const vector<string> &names);
-
-    void add(const string &B, const string &A, const string &C) override;
-
-    void add(const vector<string> &names);
-
-    void remove(const string &D) override;
-
-    void swap(const string &A, const string &B) override;
+    void add(const string &newDancerName, const string &leftDancerName, const string &rightDancerName) override;
+    void remove(const string &dancerName) override;
+    void swap(const string &firstDancerName, const string &secondDancerName) override;
 };
 
