@@ -10,9 +10,8 @@ int main() {
   H.add("Pesho", "Ivan", "Gosho");
   H.add("Dragan", "Gosho", "Ivan");
 
-  FileManager FM("dancers.txt");
-  Model M(H, FM);
-  M.saveDataInFile(FM.getFileName());
+  Model M(H, "dancers.txt");
+  M.saveDataInFile();
 
   H.print();
 

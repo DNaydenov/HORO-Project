@@ -72,7 +72,7 @@ bool Horo::add(const string &name, const string &left, const string &right) {
 }
 
 vector<string> Horo::getNames() {
-  vector<string> people(dancers.size());
+  vector<string> people;
   if (dancers.empty()) {
     return people;
   }
