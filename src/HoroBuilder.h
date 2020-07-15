@@ -1,16 +1,13 @@
-#pragma once
-#include <iostream>
-
+#pragma oncе
 #include "DanceBuilder.h"
+#include "Horo.h"
 
 class HoroBuilder : public DanceBuilder {
+
  public:
-  HoroBuilder(string name1, string name2, string name3);
-  ~HoroBuilder() = default;
 
-  void addDancer(string name, string left, string right);
+  explicit HoroBuilder(const array<string,3> &initialNames);
 
-  Dance* getConstruction();
+  void addDancer(string newDancerName, string leftDancerName, string rightDancerName) override;
 
- private:
 };

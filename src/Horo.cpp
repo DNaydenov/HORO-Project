@@ -1,15 +1,15 @@
 #include "Horo.h"
 
-void Horo::initialAdd(const string &firstDancerName, const string &secondDancerName, const string &thirdDancerName) {
-  Dancer *firstDancer = new Dancer(firstDancerName),
-      *secondDancer = new Dancer(secondDancerName),
-      *thirdDancer = new Dancer(thirdDancerName);
+void Horo::initialAdd(const array<string,3> &initialNames) {
+  Dancer *firstDancer = new Dancer(initialNames[0]),
+      *secondDancer = new Dancer(initialNames[1]),
+      *thirdDancer = new Dancer(initialNames[2]);
 
   firstDancer->setDancersInBothSides(thirdDancer, secondDancer);
   secondDancer->setDancersInBothSides(firstDancer, thirdDancer);
   thirdDancer->setDancersInBothSides(secondDancer, firstDancer);
 
-  dancers.insert({{firstDancerName, firstDancer},{secondDancerName, secondDancer}, {thirdDancerName, thirdDancer}});
+  dancers.insert({{initialNames[0], firstDancer},{initialNames[1], secondDancer}, {initialNames[2], thirdDancer}});
 }
 
 void Horo::justAdd(const string &newDancerName, const string &leftDancerName, const string &rightDancerName) {
@@ -28,14 +28,15 @@ void Horo::justRemove(const string &dancerName) {
   dancers.erase(dancerName);
 }
 
-Horo::Horo(const string &firstDancerName, const string &secondDancerName, const string &thirdDancerName) {
-  initialAdd(firstDancerName,secondDancerName,thirdDancerName);
-}
 
+
+Horo::Horo(const array<string,3> &initialNames) {
+  initialAdd(initialNames);
+}
 
 void Horo::add(const string &newDancerName, const string &leftDancerName, const string &rightDancerName) {
   if (dancers.empty()) {
-    initialAdd(newDancerName, leftDancerName, rightDancerName);
+    initialAdd({newDancerName, leftDancerName, rightDancerName});
   }
   else if (isExistDancerWithName(newDancerName)) {
     throw runtime_error("The dancer with name " + newDancerName + " already exists.");

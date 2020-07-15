@@ -1,23 +1,31 @@
 #include "BuildManager.h"
 
-void BuildManager::constructDanceFormation(string fileName) {
-  loadDataFromFile(fileName);
-  this->builder = new HoroBuilder(names[0], names[1], names[2]);
-  for (int  i = 3; i < names.size(); i++) {
-    builder->addDancer(names[i], names[i - 1], names[0]);
+#include <utility>
+
+BuildManager::BuildManager(const string &file) : filename(file) {}
+
+void BuildManager::setFilename(const string &file) {
+  filename = file;
+}
+
+void BuildManager::constructDanceFormation() {
+
+  loadDataFromFile();
+
+  HoroBuilder builder({names[0], names[1], names[2]});
+
+  for (int i = 3; i < names.size(); i++) {
+    builder.addDancer(names[i], names[i - 1], names[0]);
   }
+
+  danceBuilder = dynamic_cast<DanceBuilder *>(&builder);
 }
 
-Dance* BuildManager::getConstruction() { return builder->getConstruction(); }
-
-vector<string> BuildManager::loadDataFromFile(string fileName) {
-  FileManager temp(fileName);
-  names = temp.loadDataFromFile();
-
-  //TOOD
-  return names;
+Dance * BuildManager::getConstruction() {
+  return danceBuilder->getConstruction();
 }
 
-BuildManager::BuildManager(string fileName) {
-  constructDanceFormation(fileName);
+void BuildManager::loadDataFromFile() {
+  FileManager fileManager(filename);
+  fileManager.loadDataFromFile(names);
 }

@@ -1,22 +1,20 @@
 #pragma once
 #include <fstream>
-#include <iostream>
+
 #include <vector>
 
 using namespace std;
 
 class FileManager {
- private:
-  string fileName;
+
+  string filename;
 
  public:
-  FileManager(string file);
-  FileManager();
-  ~FileManager();
+  explicit FileManager(string filename);
 
-  string getFileName() const;
-  void setFileName(string file);
+  const string & getFilename() const;
+  void setFilename(const string &filename);
 
-  vector<string> loadDataFromFile();
-  void saveDataInFile(vector<string> text);
+  void loadDataFromFile(vector<string> &names);
+  void saveDataInFile(const vector<string> &names);
 };

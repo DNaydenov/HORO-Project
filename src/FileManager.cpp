@@ -2,45 +2,43 @@
 
 #include <fstream>
 #include <iostream>
+#include <utility>
 #include <vector>
 
 
 using namespace std;
 
-FileManager::FileManager(string file) : fileName(file) {}
+FileManager::FileManager(string file) : filename(std::move(file)) {}
 
-FileManager::FileManager() : fileName(nullptr) {}
+const string & FileManager::getFilename() const { return filename; }
 
-FileManager::~FileManager() {}
+void FileManager::setFilename(const string &file) { filename = file; }
 
-string FileManager::getFileName() const { return fileName; }
-
-void FileManager::setFileName(string file) { fileName = file; }
-
-vector<string> FileManager::loadDataFromFile() {
-  ifstream inFile;
-  inFile.open(fileName);
-  if (inFile.fail()) {
+void FileManager::loadDataFromFile(vector<string> &names) {
+  ifstream inputFile(filename);
+  if (inputFile.fail()) {
     cerr << "fail open a file" << endl;
   }
+
   size_t size;
-  inFile >> size;
-  vector<string> names;
+  inputFile >> size;
   names.resize(size);
 
   for (string &name : names) {
-    inFile >> name;
+    inputFile >> name;
   }
-  inFile.close();
-  return names;
+
+  inputFile.close();
 }
 
-void FileManager::saveDataInFile(vector<string> text) {
-  ofstream out;
-  out.open(fileName);
-  out << text.size() << endl;
-  for (size_t i = 0; i < text.size(); i++) {
-    out << text[i] << endl;
+void FileManager::saveDataInFile(const vector<string> &names) {
+  ofstream outputFile(filename);
+
+  outputFile << names.size() << endl;
+
+  for (const string & name : names) {
+    outputFile << name << endl;
   }
-  out.close();
+
+  outputFile.close();
 }

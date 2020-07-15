@@ -1,23 +1,24 @@
 #pragma once
 #include <iostream>
 #include <string>
-
 #include "FileManager.h"
 #include "HoroBuilder.h"
 
 using namespace std;
 
 class BuildManager {
- private:
-  DanceBuilder* builder;
-  vector<string> names;
 
-  vector<string> loadDataFromFile(string fileName);
+  string filename = "";
+  DanceBuilder *danceBuilder{};
+  vector<string> names{};
+
+  void loadDataFromFile();
 
  public:
-  BuildManager(string fileName);
-  ~BuildManager() = default;
+  explicit BuildManager(const string &file);
 
-  void  constructDanceFormation(string fileName);
+  void setFilename(const string &file);
+
+  void constructDanceFormation();
   Dance *getConstruction();
 };

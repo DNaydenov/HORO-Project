@@ -1,3 +1,5 @@
 #include "DanceBuilder.h"
 
-Dance* DanceBuilder::getConstruction() { return construction; }
+Dance * DanceBuilder::getConstruction() {
+  return construction;
+}

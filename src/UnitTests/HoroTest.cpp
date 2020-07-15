@@ -5,7 +5,7 @@ TEST(HoroTest, AddDancersInEmptyDanceFormation) {
   Horo H({"B","A","C"});
 
   EXPECT_EQ(H.getNumberOfDancers(),3);
-  EXPECT_TRUE(H.isThereDancerWithName({"A","B","C"}));
+  EXPECT_TRUE(H.isExistDancerWithName({"A","B","C"}));
   EXPECT_TRUE(H.areDancersAdjacent({"A","B","C"}));
 }
 
@@ -14,7 +14,7 @@ TEST(HoroTest, AddDancerInNonEmptyDanceFormation) {
   H.add("C","B","D");
 
   EXPECT_EQ(H.getNumberOfDancers(),4);
-  EXPECT_TRUE(H.isThereDancerWithName("D"));
+  EXPECT_TRUE(H.isExistDancerWithName("D"));
   EXPECT_TRUE(H.areDancersAdjacent({"B","C","D"}));
 }
 
@@ -26,7 +26,8 @@ TEST(HoroTest, AddExistingDancer) {
 }
 
 TEST(HoroTest, AddDancerBetweenNonAdjacentDancers) {
-  Horo H({"A","B","C","D"});
+  Horo H({"A","B","C"});
+  H.add("D","C","A");
 
   EXPECT_THROW(H.add("E","B","D"), runtime_error);
   EXPECT_EQ(H.getNumberOfDancers(),4);
