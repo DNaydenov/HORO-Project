@@ -281,7 +281,7 @@ GTEST_DEFINE_string_(
     "A format (defaults to \"xml\" but can be specified to be \"json\"), "
     "optionally followed by a colon and an output file name or directory. "
     "A directory is indicated by a trailing pathname separator. "
-    "Examples: \"xml:filename.xml\", \"xml::directoryname/\". "
+    "Examples: \"xml:pathToFile.xml\", \"xml::directoryname/\". "
     "If a directory is specified, output files will be created "
     "within that directory, with file-names based on the test "
     "executable's name and, if necessary, made unique by adding "

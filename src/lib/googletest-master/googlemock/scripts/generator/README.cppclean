@@ -71,13 +71,13 @@ How to Configure:
   a sequence of directories to include.  This can be a generator or
   return a static list.
 
-      def GetIncludeDirs(filename):
+      def GetIncludeDirs(pathToFile):
           return ['/some/path/with/other/headers']
 
       # Here is a more complicated example.
-      def GetIncludeDirs(filename):
+      def GetIncludeDirs(pathToFile):
           yield '/path1'
-          yield os.path.join('/path2', os.path.dirname(filename))
+          yield os.path.join('/path2', os.path.dirname(pathToFile))
           yield '/path3'
 
 

@@ -1,11 +1,11 @@
 #include "Dance.h"
 
-bool Dance::isExistDancerWithName(const string &name) {
+bool Dance::isExistDancerWithName(const std::string &name) {
   return !(dancers.find(name) == dancers.end());
 }
 
-bool Dance::isExistDancerWithName(const vector<string> &names) {
-  for(const string &name : names) {
+bool Dance::isExistDancerWithName(const std::vector<std::string> &names) {
+  for(const std::string &name : names) {
     if(!isExistDancerWithName(name)) {
       return false;
     }
@@ -13,11 +13,11 @@ bool Dance::isExistDancerWithName(const vector<string> &names) {
   return true;
 }
 
-bool Dance::areDancersAdjacent(const string &left, const string &right) {
+bool Dance::areDancersAdjacent(const std::string &left, const std::string &right) {
   return ((dancers[left]->getDancerInRight() == dancers[right]) && (dancers[right]->getDancerInLeft() == dancers[left]));
 }
 
-bool Dance::areDancersAdjacent(const vector<string> &names) {
+bool Dance::areDancersAdjacent(const std::vector<std::string> &names) {
   Dancer *start = dancers.begin()->second;
   Dancer *next = start;
   do {
@@ -34,8 +34,8 @@ size_t Dance::getNumberOfDancers() const {
   return dancers.size();
 }
 
-vector<string> Dance::getNames() {
-  vector<string> people;
+std::vector<std::string> Dance::getNames() {
+  std::vector<std::string> people;
   if (dancers.empty()) {
     return people;
   }
@@ -49,15 +49,15 @@ vector<string> Dance::getNames() {
 }
 
 
-void Dance::release(const string &name, char side) {
+void Dance::release(const std::string &name, char side) {
   dancers[name]->release(side);
 }
 
-void Dance::grab(const string &name, char side) {
+void Dance::grab(const std::string &name, char side) {
   dancers[name]->grab(side);
 }
 
-void Dance::info(const string &name) {
+void Dance::info(const std::string &name) {
   dancers[name]->info();
 }
 
@@ -65,7 +65,7 @@ void Dance::print() const {
   Dancer *start = dancers.begin()->second;
   Dancer *next = start;
   do {
-    cout << next->getName() << endl;
+    std::cout << next->getName() << std::endl;
     next = next->getDancerInRight();
   } while (next != start);
 }

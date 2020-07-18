@@ -1372,7 +1372,7 @@ int32_t Int32FromGTestEnv(const char* flag, int32_t default_value) {
 
 // As a special case for the 'output' flag, if GTEST_OUTPUT is not
 // set, we look for XML_OUTPUT_FILE, which is set by the Bazel build
-// system.  The value of XML_OUTPUT_FILE is a filename without the
+// system.  The value of XML_OUTPUT_FILE is a pathToFile without the
 // "xml:" prefix of GTEST_OUTPUT.
 // Note that this is meant to be called at the call site so it does
 // not check that the flag is 'output'

@@ -14,10 +14,10 @@ class Presenter {
 - modelManager : modelManager
 + waitForEvent()
 + updateView()
-+ buildDance(filename : String) : bool
++ buildDance(pathToFile : String) : bool
 - verifyCommand(command : String) : bool
 + executeCommand(command : String)
-+ save(filename : String) : bool
++ save(pathToFile : String) : bool
 + exit(flag : bool)
 }
 
@@ -32,21 +32,21 @@ package Model {
 
 class ModelManager {
 - dance : Dance
-+ buildDance(filename)
++ buildDance(pathToFile)
 + saveDataInFile()
 + executeCommand(String)
 }
 
 class FileManager {
-- filename : String
+- pathToFile : String
 + loadDataFromFile()
 + saveDataInFile()
 }
 
 package Builder {
 class BuildManager {
-- loadDataFromFile(filename)
-+ constructDanceFormation(filename) : Dance
+- loadDataFromFile(pathToFile)
++ constructDanceFormation(pathToFile) : Dance
 + finishConstruction()
 }
 

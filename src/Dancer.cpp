@@ -1,17 +1,17 @@
 #include "Dancer.h"
 
-Dancer::Dancer(const string &name)
+Dancer::Dancer(const std::string &name)
 {
   dancerName = name;
 }
 
-Dancer::Dancer(const string &name, Dancer *left, Dancer *right) {
+Dancer::Dancer(const std::string &name, Dancer *left, Dancer *right) {
   dancerName = name;
   setDancersInBothSides(left,right);
 }
 
 
-string Dancer::getName() const {
+std::string Dancer::getName() const {
   return dancerName;
 }
 
@@ -24,22 +24,22 @@ Dancer *Dancer::getDancerInRight() const {
 }
 
 
-void Dancer::setDancerInLeft(Dancer *left, bool grabFlag) {
+void Dancer::setDancerInLeft(Dancer *left, bool grabLeft) {
   dancerInLeft = left;
-  if (grabFlag) { holdDancerInLeft = true; }
+  if (grabLeft) { holdDancerInLeft = true; }
 }
 
-void Dancer::setDancerInRight(Dancer *right, bool grabFlag) {
+void Dancer::setDancerInRight(Dancer *right, bool grabRight) {
   dancerInRight = right;
-  if (grabFlag) { holdDancerInRight = true; }
+  if (grabRight) { holdDancerInRight = true; }
 }
 
-void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, bool grabFlagLeft, bool grabFlagRight) {
+void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, bool grabLeft, bool grabRight) {
   if (!right) {
     right = left;
   }
-  setDancerInLeft(left, grabFlagLeft);
-  setDancerInRight(right, grabFlagRight);
+  setDancerInLeft(left, grabLeft);
+  setDancerInRight(right, grabRight);
 }
 
 
@@ -82,13 +82,13 @@ void Dancer::grab(const char side) {
 }
 
 void Dancer::info() const{
-  cout << dancerInLeft->getName() << " ";
-  if (holdDancerInLeft) { cout << "<"; }
-  cout << "---";
-  if (dancerInLeft->holdDancerInRight) { cout << ">"; }
-  cout << " " << getName() << " ";
-  if (dancerInRight->holdDancerInLeft) { cout << "<"; }
-  cout << "---";
-  if (holdDancerInRight) { cout << ">"; }
-  cout << " " << dancerInRight->getName() << endl;
+  std::cout << dancerInLeft->getName() << " ";
+  if (holdDancerInLeft) { std::cout << "<"; }
+  std::cout << "---";
+  if (dancerInLeft->holdDancerInRight) { std::cout << ">"; }
+  std::cout << " " << getName() << " ";
+  if (dancerInRight->holdDancerInLeft) { std::cout << "<"; }
+  std::cout << "---";
+  if (holdDancerInRight) { std::cout << ">"; }
+  std::cout << " " << dancerInRight->getName() << std::endl;
 }

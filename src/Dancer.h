@@ -1,10 +1,9 @@
 #pragma once
 #include <iostream>
 #include <string>
-using namespace std;
 
 class Dancer {
-  string dancerName = "Undefined";
+  std::string dancerName = "Undefined";
   Dancer *dancerInLeft = nullptr;
   Dancer *dancerInRight = nullptr;
   bool holdDancerInLeft = false;
@@ -12,10 +11,10 @@ class Dancer {
 
  public:
 
-  explicit Dancer(const string &name);
-  Dancer(const string &name, Dancer *left, Dancer *right);
+  explicit Dancer(const std::string &name);
+  Dancer(const std::string &name, Dancer *left, Dancer *right);
 
-  string getName() const;
+  std::string getName() const;
 
   Dancer *getDancerInLeft() const;
 
@@ -27,8 +26,8 @@ class Dancer {
 
   void setDancersInBothSides(Dancer *left = nullptr,
                              Dancer *right = nullptr,
-                             bool grabFlagLeft = true,
-                             bool grabFlagRight = true);
+                             bool grabLeft = true,
+                             bool grabRight = true);
 
   bool isHoldDancerInLeft() const;
 

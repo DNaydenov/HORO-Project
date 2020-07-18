@@ -105,7 +105,7 @@ class GTEST_API_ FilePath {
   // that does not already exist.
   // Examples: 'dir/foo_test.xml' or 'dir/foo_test_1.xml'.
   // There could be a race condition if two or more processes are calling this
-  // function at the same time -- they could both pick the same filename.
+  // function at the same time -- they could both pick the same pathToFile.
   static FilePath GenerateUniqueFileName(const FilePath& directory,
                                          const FilePath& base_name,
                                          const char* extension);
@@ -126,7 +126,7 @@ class GTEST_API_ FilePath {
   // On Windows platform, '\' is the path separator, otherwise it is '/'.
   FilePath RemoveDirectoryName() const;
 
-  // RemoveFileName returns the directory path with the filename removed.
+  // RemoveFileName returns the directory path with the pathToFile removed.
   // Example: FilePath("path/to/file").RemoveFileName() returns "path/to/".
   // If the FilePath is "a_file" or "/a_file", RemoveFileName returns
   // FilePath("./") or, on Windows, FilePath(".\\"). If the filepath does
@@ -187,7 +187,7 @@ class GTEST_API_ FilePath {
   // but some of the functions in FilePath will not handle that correctly. In
   // particular, RemoveTrailingPathSeparator() only removes one separator, and
   // it is called in CreateDirectoriesRecursively() assuming that it will change
-  // a pathname from directory syntax (trailing separator) to filename syntax.
+  // a pathname from directory syntax (trailing separator) to pathToFile syntax.
   //
   // On Windows this method also replaces the alternate path separator '/' with
   // the primary path separator '\\', so that for example "bar\\/\\foo" becomes

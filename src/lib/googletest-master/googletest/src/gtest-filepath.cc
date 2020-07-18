@@ -153,7 +153,7 @@ FilePath FilePath::RemoveDirectoryName() const {
   return last_sep ? FilePath(last_sep + 1) : *this;
 }
 
-// RemoveFileName returns the directory path with the filename removed.
+// RemoveFileName returns the directory path with the pathToFile removed.
 // Example: FilePath("path/to/file").RemoveFileName() returns "path/to/".
 // If the FilePath is "a_file" or "/a_file", RemoveFileName returns
 // FilePath("./") or, on Windows, FilePath(".\\"). If the filepath does
@@ -275,7 +275,7 @@ bool FilePath::IsAbsolutePath() const {
 // that does not already exist.
 // Examples: 'dir/foo_test.xml' or 'dir/foo_test_1.xml'.
 // There could be a race condition if two or more processes are calling this
-// function at the same time -- they could both pick the same filename.
+// function at the same time -- they could both pick the same pathToFile.
 FilePath FilePath::GenerateUniqueFileName(const FilePath& directory,
                                           const FilePath& base_name,
                                           const char* extension) {
