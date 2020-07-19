@@ -1,5 +1,7 @@
 #include "Horo.h"
 
+using namespace std;
+
 void Horo::initialAdd(const array<string,3> &initialNames) {
   Dancer *firstDancer = new Dancer(initialNames[0]),
       *secondDancer = new Dancer(initialNames[1]),
