@@ -4,14 +4,16 @@
 #include <unordered_map>
 #include "Dancer.h"
 
+using namespace std;
+
 class Dance {
  protected:
   std::unordered_map<std::string, Dancer*> dancers;
 
  public:
 
-  bool isExistDancerWithName(const std::string &name);
-  bool isExistDancerWithName(const std::vector<std::string> &names);
+  bool isExistDancerWithName(const string &name);
+  bool isExistDancerWithName(const vector<string> &names);
 
   bool areDancersAdjacent(const std::string &left, const std::string &right);
   bool areDancersAdjacent(const std::vector<std::string> &names);

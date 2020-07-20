@@ -13,6 +13,7 @@ class Dancer {
 
   explicit Dancer(const std::string &name);
   Dancer(const std::string &name, Dancer *left, Dancer *right);
+  Dancer(const Dancer &other);
 
   std::string getName() const;
 

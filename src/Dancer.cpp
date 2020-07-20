@@ -1,40 +1,45 @@
 #include "Dancer.h"
 
-Dancer::Dancer(const std::string &name)
-{
-  dancerName = name;
-}
+Dancer::Dancer(const std::string &name) { dancerName = name; }
 
 Dancer::Dancer(const std::string &name, Dancer *left, Dancer *right) {
   dancerName = name;
-  setDancersInBothSides(left,right);
+  setDancersInBothSides(left, right);
 }
 
+Dancer::Dancer(const Dancer &other)
+    : dancerName(other.getName()),
+      dancerInLeft(other.getDancerInLeft()),
+      dancerInRight(other.getDancerInRight()),
+      holdDancerInLeft(other.isHoldDancerInLeft()),
+      holdDancerInRight(other.isHoldDancerInRight()) {}
 
-std::string Dancer::getName() const {
-  return dancerName;
-}
+std::string Dancer::getName() const { return dancerName; }
 
-Dancer *Dancer::getDancerInLeft() const {
-  return dancerInLeft;
-}
+Dancer *Dancer::getDancerInLeft() const { return dancerInLeft; }
 
-Dancer *Dancer::getDancerInRight() const {
-  return dancerInRight;
-}
-
+Dancer *Dancer::getDancerInRight() const { return dancerInRight; }
 
 void Dancer::setDancerInLeft(Dancer *left, bool grabLeft) {
+  // delete after seen
   dancerInLeft = left;
-  if (grabLeft) { holdDancerInLeft = true; }
+  // Edit this:
+  // if (grabLeft) { holdDancerInLeft = true; }
+  // with this:
+  holdDancerInLeft = grabLeft;
 }
 
 void Dancer::setDancerInRight(Dancer *right, bool grabRight) {
+  // delete after seen
   dancerInRight = right;
-  if (grabRight) { holdDancerInRight = true; }
+  // Edit this:
+  // if (grabRight) { holdDancerInRight = true; }
+  // with this:
+  holdDancerInRight = grabRight;
 }
 
-void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, bool grabLeft, bool grabRight) {
+void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, bool grabLeft,
+                                   bool grabRight) {
   if (!right) {
     right = left;
   }
@@ -42,53 +47,58 @@ void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, bool grabLeft, b
   setDancerInRight(right, grabRight);
 }
 
+bool Dancer::isHoldDancerInLeft() const { return holdDancerInLeft; }
 
-bool Dancer::isHoldDancerInLeft() const {
-  return holdDancerInLeft;
-}
-
-bool Dancer::isHoldDancerInRight() const {
-  return holdDancerInRight;
-}
+bool Dancer::isHoldDancerInRight() const { return holdDancerInRight; }
 
 void Dancer::release(const char side) {
   switch (side) {
-    case 'l' : holdDancerInLeft = false;
+    case 'l':
+      holdDancerInLeft = false;
       break;
-    case 'r' : holdDancerInRight = false;
+    case 'r':
+      holdDancerInRight = false;
       break;
-    case 'b' : {
+    case 'b': {
       holdDancerInLeft = false;
       holdDancerInRight = false;
-    }
-      break;
-    default :; //return error message
+    } break;
+    default:;  // return error message
   }
 }
 
 void Dancer::grab(const char side) {
   switch (side) {
-    case 'l' : holdDancerInLeft = true;
+    case 'l':
+      holdDancerInLeft = true;
       break;
-    case 'r' : holdDancerInRight = true;
+    case 'r':
+      holdDancerInRight = true;
       break;
-    case 'b' : {
+    case 'b': {
       holdDancerInLeft = true;
       holdDancerInRight = true;
-    }
-      break;
-    default :; //return error message
+    } break;
+    default:;  // return error message
   }
 }
 
-void Dancer::info() const{
+void Dancer::info() const {
   std::cout << dancerInLeft->getName() << " ";
-  if (holdDancerInLeft) { std::cout << "<"; }
+  if (holdDancerInLeft) {
+    std::cout << "<";
+  }
   std::cout << "---";
-  if (dancerInLeft->holdDancerInRight) { std::cout << ">"; }
+  if (dancerInLeft->holdDancerInRight) {
+    std::cout << ">";
+  }
   std::cout << " " << getName() << " ";
-  if (dancerInRight->holdDancerInLeft) { std::cout << "<"; }
+  if (dancerInRight->holdDancerInLeft) {
+    std::cout << "<";
+  }
   std::cout << "---";
-  if (holdDancerInRight) { std::cout << ">"; }
+  if (holdDancerInRight) {
+    std::cout << ">";
+  }
   std::cout << " " << dancerInRight->getName() << std::endl;
 }
