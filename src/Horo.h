@@ -2,7 +2,6 @@
 #include <array>
 #include <exception>
 #include "Dance.h"
-
 using namespace std;
 
 class Horo : public Dance {

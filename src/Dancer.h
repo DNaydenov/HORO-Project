@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <exception>
+using namespace std;
 
 class Dancer {
   std::string dancerName = "Undefined";
@@ -16,19 +18,12 @@ class Dancer {
   Dancer(const Dancer &other);
 
   std::string getName() const;
-
   Dancer *getDancerInLeft() const;
-
   Dancer *getDancerInRight() const;
 
-  void setDancerInLeft(Dancer *left, bool grabFlag = true);
-
-  void setDancerInRight(Dancer *right, bool grabFlag = true);
-
-  void setDancersInBothSides(Dancer *left = nullptr,
-                             Dancer *right = nullptr,
-                             bool grabLeft = true,
-                             bool grabRight = true);
+  void setDancerInLeft(Dancer *left, bool grabFlag = false);
+  void setDancerInRight(Dancer *right, bool grabFlag = false);
+  void setDancersInBothSides(Dancer *left = nullptr, Dancer *right = nullptr, char side = 'b');
 
   bool isHoldDancerInLeft() const;
 

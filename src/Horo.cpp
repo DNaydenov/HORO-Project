@@ -33,7 +33,9 @@ void Horo::justRemove(const string &dancerName) {
   dancers.erase(dancerName);
 }
 
+
 Horo::Horo(const array<string, 3> &initialNames) { initialAdd(initialNames); }
+
 
 void Horo::add(const string &newDancerName, const string &leftDancerName, const string &rightDancerName) {
   if (dancers.empty()) {
@@ -93,8 +95,7 @@ void Horo::swap(const string &A, const string &B) {
       Dancer *temp = dancerA->getDancerInLeft();
       temp->setDancerInRight(dancerB, false);
       dancerB->setDancerInLeft(temp, false);
-      dancerA->setDancersInBothSides(dancerB, dancerB->getDancerInRight(),
-                                     aHoldB, false);
+      dancerA->setDancersInBothSides(dancerB, dancerB->getDancerInRight(),'l');
       dancerA->getDancerInRight()->setDancerInLeft(dancerA, false);
       dancerB->setDancerInRight(dancerA, bHoldA);
     } else {

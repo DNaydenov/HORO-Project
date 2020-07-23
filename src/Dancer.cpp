@@ -14,11 +14,17 @@ Dancer::Dancer(const Dancer &other)
       holdDancerInLeft(other.isHoldDancerInLeft()),
       holdDancerInRight(other.isHoldDancerInRight()) {}
 
+
 std::string Dancer::getName() const { return dancerName; }
 
 Dancer *Dancer::getDancerInLeft() const { return dancerInLeft; }
 
 Dancer *Dancer::getDancerInRight() const { return dancerInRight; }
+
+bool Dancer::isHoldDancerInLeft() const { return holdDancerInLeft; }
+
+bool Dancer::isHoldDancerInRight() const { return holdDancerInRight; }
+
 
 void Dancer::setDancerInLeft(Dancer *left, bool grabLeft) {
   dancerInLeft = left;
@@ -30,18 +36,22 @@ void Dancer::setDancerInRight(Dancer *right, bool grabRight) {
   holdDancerInRight = grabRight;
 }
 
-void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, bool grabLeft,
-                                   bool grabRight) {
-  if (!right) {
-    right = left;
+void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, char side) {
+
+  setDancerInLeft(left);
+  setDancerInRight(right);
+
+  switch (side) {
+    case 'l':
+      if(left) grab('l'); break;
+    case 'r':
+      if(right) grab('r'); break;
+    case 'b':
+      if(left && right) grab('b'); break;
+    default: throw runtime_error("The parameter 'side' is incorrect.");
   }
-  setDancerInLeft(left, grabLeft);
-  setDancerInRight(right, grabRight);
 }
 
-bool Dancer::isHoldDancerInLeft() const { return holdDancerInLeft; }
-
-bool Dancer::isHoldDancerInRight() const { return holdDancerInRight; }
 
 void Dancer::release(const char side) {
   switch (side) {
@@ -55,7 +65,7 @@ void Dancer::release(const char side) {
       holdDancerInLeft = false;
       holdDancerInRight = false;
     } break;
-    default:;  // return error message
+    default: throw runtime_error("The parameter 'side' is incorrect.");
   }
 }
 
@@ -71,26 +81,18 @@ void Dancer::grab(const char side) {
       holdDancerInLeft = true;
       holdDancerInRight = true;
     } break;
-    default:;  // return error message
+    default: throw runtime_error("The parameter 'side' is incorrect.");
   }
 }
 
 void Dancer::info() const {
   std::cout << dancerInLeft->getName() << " ";
-  if (holdDancerInLeft) {
-    std::cout << "<";
-  }
+  if (holdDancerInLeft) { std::cout << "<"; }
   std::cout << "---";
-  if (dancerInLeft->holdDancerInRight) {
-    std::cout << ">";
-  }
+  if (dancerInLeft->holdDancerInRight) {  std::cout << ">"; }
   std::cout << " " << getName() << " ";
-  if (dancerInRight->holdDancerInLeft) {
-    std::cout << "<";
-  }
+  if (dancerInRight->holdDancerInLeft) { std::cout << "<"; }
   std::cout << "---";
-  if (holdDancerInRight) {
-    std::cout << ">";
-  }
+  if (holdDancerInRight) {  std::cout << ">"; }
   std::cout << " " << dancerInRight->getName() << std::endl;
 }
