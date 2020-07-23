@@ -1,10 +1,10 @@
-//#include <gtest/gtest.h>    
-#include "ModelManager.h"
+#include <gtest/gtest.h>
+//#include "ModelManager.h"
 int main() {
-  // testing::InitGoogleTest();
-  // RUN_ALL_TESTS();
+   testing::InitGoogleTest();
+   RUN_ALL_TESTS();
 
-  ModelManager M("dancers.txt");
+ /* ModelManager M("dancers.txt");
   M.buildDance();
   M.dance->print();
   cout << endl;
@@ -23,6 +23,6 @@ int main() {
     M.dance->info(name);
   }
   M.dance->print();
-
+  */
   return 0;
 }

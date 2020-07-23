@@ -3,6 +3,8 @@
 #include <exception>
 #include "Dance.h"
 
+using namespace std;
+
 class Horo : public Dance {
 
     void initialAdd(const array<string,3> &initialNames);

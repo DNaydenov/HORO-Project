@@ -21,20 +21,12 @@ Dancer *Dancer::getDancerInLeft() const { return dancerInLeft; }
 Dancer *Dancer::getDancerInRight() const { return dancerInRight; }
 
 void Dancer::setDancerInLeft(Dancer *left, bool grabLeft) {
-  // delete after seen
   dancerInLeft = left;
-  // Edit this:
-  // if (grabLeft) { holdDancerInLeft = true; }
-  // with this:
   holdDancerInLeft = grabLeft;
 }
 
 void Dancer::setDancerInRight(Dancer *right, bool grabRight) {
-  // delete after seen
   dancerInRight = right;
-  // Edit this:
-  // if (grabRight) { holdDancerInRight = true; }
-  // with this:
   holdDancerInRight = grabRight;
 }
 

@@ -14,8 +14,7 @@ void Horo::initialAdd(const array<string, 3> &initialNames) {
                   {initialNames[2], thirdDancer}});
 }
 
-void Horo::justAdd(const string &newDancerName, const string &leftDancerName,
-                   const string &rightDancerName) {
+void Horo::justAdd(const string &newDancerName, const string &leftDancerName, const string &rightDancerName) {
   Dancer *newDancer = new Dancer(newDancerName);
 
   newDancer->setDancersInBothSides(dancers[leftDancerName],
@@ -36,8 +35,7 @@ void Horo::justRemove(const string &dancerName) {
 
 Horo::Horo(const array<string, 3> &initialNames) { initialAdd(initialNames); }
 
-void Horo::add(const string &newDancerName, const string &leftDancerName,
-               const string &rightDancerName) {
+void Horo::add(const string &newDancerName, const string &leftDancerName, const string &rightDancerName) {
   if (dancers.empty()) {
     initialAdd({newDancerName, leftDancerName, rightDancerName});
   } else if (isExistDancerWithName(newDancerName)) {
@@ -78,7 +76,7 @@ void Horo::remove(const string &dancerName) {
 
 void Horo::swap(const string &A, const string &B) {
   if (!isExistDancerWithName(A) || !isExistDancerWithName(B)) {
-    throw runtime_error("1");
+    throw runtime_error("The dancer with name " + A + " or " + B + " does not exist.");
   }
   Dancer *dancerA = dancers[A];
   Dancer *dancerB = dancers[B];
@@ -88,7 +86,7 @@ void Horo::swap(const string &A, const string &B) {
         !dancers[B]->isHoldDancerInRight() &&
         !dancers[A]->getDancerInLeft()->isHoldDancerInRight() &&
         !dancers[B]->getDancerInRight()->isHoldDancerInLeft()) {
-      // temp -- A -- B -- 1
+
       bool aHoldB = dancerA->isHoldDancerInRight();
       bool bHoldA = dancerB->isHoldDancerInLeft();
 
@@ -99,13 +97,12 @@ void Horo::swap(const string &A, const string &B) {
                                      aHoldB, false);
       dancerA->getDancerInRight()->setDancerInLeft(dancerA, false);
       dancerB->setDancerInRight(dancerA, bHoldA);
-      // temp -- B -- A -- 1
     } else {
-      throw runtime_error("2");  // A and B are linked to the horo
+      throw runtime_error("The dancers with names " + A + " and " + B + " are linked to the dance");
     }
   } else if (areDancersAdjacent(B, A)) {
     swap(B, A);
   } else {
-    throw runtime_error("3");  // A and B are not Adjacent
+    throw runtime_error("The dancers with names " + A + " and " + B + " are not adjacent.");
   }
 }
