@@ -14,19 +14,23 @@ bool Dance::isExistDancerWithName(const std::vector<std::string> &names) {
 }
 
 bool Dance::areDancersAdjacent(const std::string &left, const std::string &right) {
+  if(!isExistDancerWithName({left, right})) {
+    return false;
+  }
   return ((dancers[left]->getDancerInRight() == dancers[right]) && (dancers[right]->getDancerInLeft() == dancers[left]));
 }
 
 bool Dance::areDancersAdjacent(const std::vector<std::string> &names) {
-  Dancer *start = dancers.begin()->second;
-  Dancer *next = start;
-  do {
-    if(!areDancersAdjacent(next->getName(),next->getDancerInRight()->getName())) {
-      return false;
-    }
-    next = next->getDancerInRight();
-  } while (next != start);
-  return true;
+  size_t i;
+  for(i=0; i < names.size()-1; i++) {
+   if(!isExistDancerWithName(names[i])) {
+     return false;
+   }
+   else if(!areDancersAdjacent(names[i],names[i+1])) {
+     return false;
+   }
+ }
+ return true;
 }
 
 

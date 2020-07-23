@@ -2,7 +2,7 @@
 #include "../Horo.h"
 
 TEST(HoroTest, AddDancersInEmptyDanceFormation) {
-  Horo H({"B","A","C"});
+  Horo H({"A","B","C"});
 
   EXPECT_EQ(H.getNumberOfDancers(),3);
   EXPECT_TRUE(H.isExistDancerWithName({"A","B","C"}));
@@ -33,17 +33,55 @@ TEST(HoroTest, AddDancerBetweenNonAdjacentDancers) {
   EXPECT_EQ(H.getNumberOfDancers(),4);
 }
 
-TEST(HoroTest, RemoveNonLinkedDancer) {
 
+TEST(HoroTest, RemoveNonLinkedDancer) {
+  Horo H({"A","B","C"});
+  H.add("D","C","A");
+
+  //release dancer D from all sides
+  H.release("D",'b');
+  H.release("C",'r');
+  H.release("A",'l');
+
+  H.remove("D");
+  EXPECT_EQ(H.getNumberOfDancers(),3);
+  EXPECT_FALSE(H.isExistDancerWithName("D"));
+  EXPECT_TRUE(H.areDancersAdjacent({"A","B","C"}));
+  EXPECT_FALSE(H.areDancersAdjacent({"A","B","C","D"}));
 }
 
 TEST(HoroTest, RemoveLinkedDancer) {
+  Horo H({"A","B","C"});
+  H.add("D","C","A");
 
+  EXPECT_THROW(H.remove("D"), runtime_error);
+  EXPECT_EQ(H.getNumberOfDancers(),4);
+  EXPECT_TRUE(H.isExistDancerWithName("D"));
+  EXPECT_TRUE(H.areDancersAdjacent({"A","B","C","D"}));
+}
+
+TEST(HoroTest, RemoveNonExistingDancer) {
+  Horo H({"A","B","C"});
+
+  EXPECT_THROW(H.remove("D"), runtime_error);
+  EXPECT_EQ(H.getNumberOfDancers(),3);
+  EXPECT_TRUE(H.areDancersAdjacent({"A","B","C"}));
 }
 
 TEST(HoroTest, RemoveDancerFromDanceWithOnlyThreeDancers) {
+  Horo H({"A","B","C"});
 
+  //release dancer B from all sides
+  H.release("B",'b');
+  H.release("C",'r');
+  H.release("A",'l');
+
+  EXPECT_THROW(H.remove("B"), runtime_error);
+  EXPECT_EQ(H.getNumberOfDancers(),3);
+  EXPECT_TRUE(H.isExistDancerWithName("B"));
+  EXPECT_TRUE(H.areDancersAdjacent({"A","B","C"}));
 }
+
 
 TEST(HoroTest, SwapTwoNonLinkedDancers) {
   Horo H({"B","A","C"});
