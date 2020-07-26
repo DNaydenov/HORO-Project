@@ -1,0 +1,8 @@
+release 2
+grab 2
+info 1
+add 3
+remove 1
+swap 2
+print 0
+exit 0
