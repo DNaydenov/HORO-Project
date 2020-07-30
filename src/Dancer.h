@@ -21,17 +21,14 @@ class Dancer {
   Dancer *getDancerInLeft() const;
   Dancer *getDancerInRight() const;
 
-  void setDancerInLeft(Dancer *left, bool grabFlag = false);
-  void setDancerInRight(Dancer *right, bool grabFlag = false);
+  void setDancerInLeft(Dancer *left, bool grabFlag = true);
+  void setDancerInRight(Dancer *right, bool grabFlag = true);
   void setDancersInBothSides(Dancer *left = nullptr, Dancer *right = nullptr, char side = 'b');
 
   bool isHoldDancerInLeft() const;
-
   bool isHoldDancerInRight() const;
 
   void release(char side);
-
   void grab(char side);
-
   void info() const;
 };

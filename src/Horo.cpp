@@ -17,8 +17,7 @@ void Horo::initialAdd(const array<string, 3> &initialNames) {
 void Horo::justAdd(const string &newDancerName, const string &leftDancerName, const string &rightDancerName) {
   Dancer *newDancer = new Dancer(newDancerName);
 
-  newDancer->setDancersInBothSides(dancers[leftDancerName],
-                                   dancers[rightDancerName]);
+  newDancer->setDancersInBothSides(dancers[leftDancerName],dancers[rightDancerName]);
   dancers[leftDancerName]->setDancerInRight(newDancer);
   dancers[rightDancerName]->setDancerInLeft(newDancer);
 
