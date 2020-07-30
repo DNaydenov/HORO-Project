@@ -16,5 +16,5 @@ class ModelManager {
 
   void buildDance();
   void saveDataInFile() const;
-  //void executeCommand(string command);
+  void executeCommand(vector<string> command);
 };

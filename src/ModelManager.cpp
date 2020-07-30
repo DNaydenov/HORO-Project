@@ -16,3 +16,7 @@ void ModelManager::saveDataInFile() const {
   FileManager fileManager(filename);
   fileManager.saveDataInFile(dance->getNames());
 }
+
+void ModelManager::executeCommand(vector<string> command) {
+    
+}
