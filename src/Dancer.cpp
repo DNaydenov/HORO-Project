@@ -43,7 +43,7 @@ void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, char side) {
 
   switch (side) {
     case 'l':
-      if(left) grab('l'); break;
+      if(left) grab(side); break;
     case 'r':
       if(right) grab('r'); break;
     case 'b':

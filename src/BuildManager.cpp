@@ -18,6 +18,8 @@ void BuildManager::constructDanceFormation() {
     builder.addDancer(names[i], names[i - 1], names[0]);
   }
 
+
+
   danceBuilder = dynamic_cast<DanceBuilder *>(&builder);
 }
 

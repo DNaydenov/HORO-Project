@@ -53,11 +53,13 @@ std::vector<std::string> Dance::getNames() {
 }
 
 
-void Dance::release(const std::string &name, char side) {
+//Application Programming Interface
+
+void Dance::release(const std::string &name, const char side) {
   dancers[name]->release(side);
 }
 
-void Dance::grab(const std::string &name, char side) {
+void Dance::grab(const std::string &name, const char side) {
   dancers[name]->grab(side);
 }
 
@@ -74,3 +76,32 @@ void Dance::print() const {
   } while (next != start);
 }
 
+
+//Application Programming Interface - vector edition
+void Dance::release(const std::vector<std::string> &arguments) {
+  release(arguments[0], arguments[1][0]);
+}
+
+void Dance::grab(const std::vector<std::string> &arguments) {
+  grab(arguments[0], arguments[1][0]);
+}
+
+void Dance::add(const std::vector<std::string> &arguments) {
+  add(arguments[0],arguments[1],arguments[2]);
+}
+
+void Dance::remove(const std::vector<std::string> &arguments) {
+  remove(arguments[0]);
+}
+
+void Dance::swap(const std::vector<std::string> &arguments) {
+  swap(arguments[0],arguments[1]);
+}
+
+void Dance::info(const std::vector<std::string> &arguments) {
+  info(arguments[0]);
+}
+
+void Dance::print(const std::vector<std::string> &arguments) {
+  print();
+}
