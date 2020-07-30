@@ -13,10 +13,8 @@ class Presenter {
 
   ~Presenter() = default;
   void play();
-  void waitForEvent();
   void buildDance();
-  void executeCommand(vector<string>);
-  void updateView(); // print info 
+  void executeCommand(vector<string> commandAndParameters);
   void save();
 
  private:

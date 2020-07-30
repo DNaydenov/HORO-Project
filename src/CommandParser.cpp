@@ -46,7 +46,10 @@ ComandParser::ComandParser(string pathToFile) : pathToFile(pathToFile) {
 vector<string> ComandParser::verifyComand(string commandLine) {
   vector<string> command = split(commandLine, " ");
   int numberOfParameters = commands[command[0]];
-  if (numberOfParameters != command.size() - 1) {
+  if (numberOfParameters == 0) {
+    throw "this command does not exist\n";
+  }
+  if (numberOfParameters != command.size()) {
     // TODO write compatible exeption
     throw "wrong number of parameters";
   }
