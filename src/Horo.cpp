@@ -57,20 +57,20 @@ void Horo::add(const string &newDancerName, const string &leftDancerName, const 
     initialAdd({newDancerName, leftDancerName, rightDancerName});
   }
   else if (isExistDancerWithName(newDancerName)) {
-    throw runtime_error("The dancer with name " + newDancerName +
-                        " already exists.");
+    throw runtime_error("The dancer with name <" + newDancerName +
+                        "> already exists.");
   }
   else if (!isExistDancerWithName(leftDancerName)) {
-    throw runtime_error("The dancer with name " + leftDancerName +
-                        " does not exist.");
+    throw runtime_error("The dancer with name <" + leftDancerName +
+                        "> does not exist.");
   }
   else if (!isExistDancerWithName(rightDancerName)) {
-    throw runtime_error("The dancer with name " + rightDancerName +
-                        " does not exist.");
+    throw runtime_error("The dancer with name <" + rightDancerName +
+                        "> does not exist.");
   }
   else if (!areDancersAdjacent(leftDancerName, rightDancerName)) {
-    throw runtime_error("The dancers with names " + leftDancerName +
-                        " and " + rightDancerName + " are not adjacent.");
+    throw runtime_error("The dancers with names <" + leftDancerName +
+                        "> and <" + rightDancerName + "> are not adjacent.");
   }
   else {
     justAdd(newDancerName, leftDancerName, rightDancerName);
@@ -79,31 +79,31 @@ void Horo::add(const string &newDancerName, const string &leftDancerName, const 
 
 void Horo::remove(const string &dancerName) {
   if (!isExistDancerWithName(dancerName)) {
-    throw runtime_error("The dancer with name " + dancerName +
-                        " does not exist.");
+    throw runtime_error("The dancer with name <" + dancerName +
+                        "> does not exist.");
   }
   if (dancers[dancerName]->isHoldDancerInLeft() ||
       dancers[dancerName]->isHoldDancerInRight()) {
-    throw runtime_error(dancerName + " hold another dancer.");
+    throw runtime_error("<" + dancerName + "> hold another dancer.");
   }
   else if (dancers[dancerName]->getDancerInLeft()->isHoldDancerInRight() ||
            dancers[dancerName]->getDancerInRight()->isHoldDancerInLeft()) {
-    throw runtime_error("Another dancer hold " + dancerName + ".");
+    throw runtime_error("Another dancer hold <" + dancerName + ">.");
   }
   else {
     justRemove(dancerName);
     if (dancers.size() == 2) {
-      throw runtime_error("There are too few people left in the dance.");
+      throw runtime_error("...and the music stops!");
     }
   }
 }
 
 void Horo::swap(const string &dancerNameOne, const string &dancerNameTwo) {
   if (!isExistDancerWithName(dancerNameOne)) {
-    throw runtime_error("The dancer with name " + dancerNameOne + " does not exist.");
+    throw runtime_error("The dancer with name <" + dancerNameOne + "> does not exist.");
   }
   else if(!isExistDancerWithName(dancerNameTwo)) {
-    throw runtime_error("The dancer with name " + dancerNameTwo + " does not exist.");
+    throw runtime_error("The dancer with name <" + dancerNameTwo + "> does not exist.");
   }
 
   if (areDancersAdjacent(dancerNameOne, dancerNameTwo)) {
@@ -112,7 +112,7 @@ void Horo::swap(const string &dancerNameOne, const string &dancerNameTwo) {
         dancers[dancerNameOne]->getDancerInLeft()->isHoldDancerInRight() ||
         dancers[dancerNameTwo]->getDancerInRight()->isHoldDancerInLeft()) {
 
-      throw runtime_error("The dancers with names " + dancerNameOne + " and " + dancerNameTwo + " are linked to the dance");
+      throw runtime_error("The dancers with names <" + dancerNameOne + "> and <" + dancerNameTwo + "> are linked to the dance");
     }
     else {
       justSwap(dancerNameOne, dancerNameTwo);
@@ -122,6 +122,6 @@ void Horo::swap(const string &dancerNameOne, const string &dancerNameTwo) {
     swap(dancerNameTwo, dancerNameOne);
   }
   else {
-    throw runtime_error("The dancers with names " + dancerNameOne + " and " + dancerNameTwo + " are not adjacent.");
+    throw runtime_error("The dancers with names <" + dancerNameOne + "> and <" + dancerNameTwo + "> are not adjacent.");
   }
 }

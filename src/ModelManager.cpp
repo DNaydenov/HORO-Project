@@ -36,9 +36,9 @@ void ModelManager::saveDataInFile() const {
 }
 
 void ModelManager::executeCommand(const string &command, const vector<string> &arguments) {
-  try {
-    EXECUTE_COMMAND(command, arguments);
+ /* try {
   } catch (const char * e) {
    cout << e << endl;
-  }
+  }*/
+    EXECUTE_COMMAND(command, arguments);
 }

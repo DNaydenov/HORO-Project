@@ -7,28 +7,27 @@ Presenter::Presenter(string pathNames) : model(pathNames) {}
 
 void Presenter::play() {
   string input;
-  string welcome = "Input a command:\n";
+  help();
+  string welcome = "Input a command:\n>";
   while (input != "exit") {
     cout << welcome;
     getline(cin, input);
+    if (input == "help") help();
     if (input == "exit") break;
-    if (input[0] == ' ') {
-      cout << "wrong input - the can not start with a white space" << endl;
-    } else {
-      vector<string> command;
-      bool failed = false;
+    vector<string> command;
+    bool failed = false;
+    try {
+      command = parser.verifyComand(input);
+    } catch (const std::exception& e) {
+      failed = true;
+      cout << e.what() << endl;
+    }
+    if (!failed) {
       try {
-        command = parser.verifyComand(input);
-      } catch (const char* e) {
-        failed = true;
-        cout << e << endl;
-      }
-      if (!failed) {
-        try {
-          executeCommand(command);
-        } catch (const std::exception& e) {
-          cout << e.what() << endl;
-        }
+        executeCommand(command);
+      } catch (const std::exception& e) {
+        if (e.what() == "...and the music stops!") exit();
+        cout << e.what() << endl;
       }
     }
   }
@@ -50,4 +49,16 @@ void Presenter::save() { model.saveDataInFile(); }
 
 void Presenter::exit(bool flag) {
   if (flag) save();
+}
+
+void Presenter::help() const {
+  std::cout << "The available commands are:\n";
+  std::cout << "\tprint -> prints all participants in the dance\n";
+  std::cout << "\tinfo <who|all>\n";
+  std::cout << "\tadd <who> <left dancer label> <right dancer label>\n";
+  std::cout << "\tremove <who>\n";
+  std::cout << "\tswap <who1> <who2>\n";
+  std::cout << "\tgrab <who> <left|right|both>\n";
+  std::cout << "\trelease <who> <left|right|both>\n";
+  std::cout << "\texit\n";
 }

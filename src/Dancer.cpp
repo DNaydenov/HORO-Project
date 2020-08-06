@@ -48,7 +48,9 @@ void Dancer::setDancersInBothSides(Dancer *left, Dancer *right, char side) {
       if(right) grab('r'); break;
     case 'b':
       if(left && right) grab('b'); break;
-    default: throw runtime_error("The parameter 'side' is incorrect.");
+    default: 
+        
+        runtime_error("The parameter 'side' is incorrect.");
   }
 }
 

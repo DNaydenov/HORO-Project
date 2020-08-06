@@ -55,7 +55,7 @@ std::vector<std::string> Dance::getNames() {
 void Dance::release(const std::string &name, const char side) {
   Dancer *ptr = dancers[name];
   if (ptr == nullptr) {
-    throw "dancer with such a name doesn't exist";
+    throw runtime_error("Dancer with name <" + name + "> doesn't exist");
   }
   dancers[name]->release(side);
 }
@@ -63,7 +63,7 @@ void Dance::release(const std::string &name, const char side) {
 void Dance::grab(const std::string &name, const char side) {
   Dancer *ptr = dancers[name];
   if (ptr == nullptr) {
-    throw "dancer with such a name doesn't exist";
+    throw runtime_error("Dancer with name <" + name + "> doesn't exist");
   }
   dancers[name]->grab(side);
 }
@@ -71,7 +71,7 @@ void Dance::grab(const std::string &name, const char side) {
 void Dance::info(const std::string &name) {
   Dancer *ptr = dancers[name];
   if (ptr == nullptr) {
-    throw "dancer with such a name doesn't exist";
+    throw runtime_error("Dancer with name <" + name + "> doesn't exist");
   }
   dancers[name]->info();
 }

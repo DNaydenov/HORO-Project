@@ -19,4 +19,5 @@ class Presenter {
 
  private:
   void exit(bool flag = false);
+  void help() const;
 };
