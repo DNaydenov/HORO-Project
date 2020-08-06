@@ -6,5 +6,5 @@ remove 2
 swap 3
 print 1
 exit 1
-
+help 1
 

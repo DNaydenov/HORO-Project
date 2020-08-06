@@ -17,9 +17,6 @@ void ComandParser::loadCommands() {
 
   inputFile.close();
 
-  /*for (auto it = commands.begin(); it != commands.end(); it++) {
-   cout << it->second << endl;
- }*/
 }
 
 vector<string> ComandParser::split(string s, string delimiter) {
@@ -33,8 +30,6 @@ vector<string> ComandParser::split(string s, string delimiter) {
     pos_start = pos_end + delim_len;
    if (token != "") res.push_back(token);
   }
-
-  //res.push_back(s.substr(pos_start));
   return res;
 }
 
@@ -51,8 +46,7 @@ vector<string> ComandParser::verifyComand(string commandLine) {
     throw runtime_error("Command " + command[0] +
                         " does not exist\nType help for more information\n");
   }
-  if (numberOfParameters != command.size()) {
-    // TODO write compatible exeption
+  if (numberOfParameters != command.size()) {  
     throw invalid_argument(
         "Command " + command[0] +
         " have wrong number of parameters\nType help for more information\n");

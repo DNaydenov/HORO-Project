@@ -12,8 +12,6 @@ void Presenter::play() {
   while (input != "exit") {
     cout << welcome;
     getline(cin, input);
-    if (input == "help") help();
-    if (input == "exit") break;
     vector<string> command;
     bool failed = false;
     try {
@@ -23,11 +21,17 @@ void Presenter::play() {
       cout << e.what() << endl;
     }
     if (!failed) {
-      try {
-        executeCommand(command);
-      } catch (const std::exception& e) {
-        if (e.what() == "...and the music stops!") exit();
-        cout << e.what() << endl;
+      if (command[0] == "help")
+        help();
+      else if (command[0] == "exit")
+        break;
+      else {
+        try {
+          executeCommand(command);
+        } catch (const std::exception& e) {
+          if (e.what() == "...and the music stops!") exit();
+          cout << e.what() << endl;
+        }
       }
     }
   }
